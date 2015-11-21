@@ -152,6 +152,13 @@ public class futureLearn {
                
                
                //startdate
+               /*String startDate = doc2.select("time[itemprop=startDate]").text();
+               //[number]<space>[month]
+                String startDateSplit[] = startDate.split(" "); //split on space
+                if(startDateSplit.length>2){
+                    startDate = startDateSplit[0]+" "+startDateSplit[1];
+                }
+                course1.addStartDate(startDate);*/
                 Elements startDates = doc2.select("time");
                 for(Element starthold : startDates){
                     if(starthold.attr("itemprop").equals("startDate")){
@@ -169,20 +176,34 @@ public class futureLearn {
                	course1.addCourseImage(crsImgLink);
                 }       
               }        
-               //course category
-               		//course category is determined by the current index of the course page
+              
+               //course category is determined by the current index of the course page
                course1.setCategory(pgcrsNames.get(a));//get the corresponding name for the category
+
+               //time scraped
+               course1.setTimeScraped(LocalDate.now().toString()+" "+LocalTime.now().toString());
                
-               course1.setTimeScraped( LocalDate.now().toString()+" "+LocalTime.now().toString());
                
-               allCourses.add(course1); //we add the course to the arraylist of all courses
+               //duplicatecheck
+               int crschecking = 0;
+               for(Course crscheck: allCourses){
+                   //System.out.println(crscheck.getCourseName());
+                   if(crscheck.getCourseName().equals(crsName)){
+                       crschecking++;
+                   }
+               }     
+               if(crschecking == 0){
+                   allCourses.add(course1);
+                   System.out.println(course1.toString());
+                   i++;
+               }
                
-              System.out.println(course1.toString());
+               //allCourses.add(course1); //we add the course to the arraylist of all courses
               //store each course to database
               // storeToMySQL(course1);
-               i++;//increment course_id
+               //i++;//increment course_id
             }
-		}
+            }
         
 	}
 	
