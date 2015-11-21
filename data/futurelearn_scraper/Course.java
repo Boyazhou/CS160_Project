@@ -6,7 +6,7 @@ public class Course {
 	private String courseName="";
 	private ArrayList<String> instructorNames;
 	private ArrayList<String> instructorImages;
-	private ArrayList<String> startDates;
+	private String startDate = "";
 	private String instructorName30Cap = "";
 	private int courseLength = 0;
 	private String category="";
@@ -25,14 +25,14 @@ public class Course {
 	public Course(){
 		instructorNames = new ArrayList<String>();
 		instructorImages = new ArrayList<String>();
-		startDates = new ArrayList<String>();
+		//startDates = new ArrayList<String>();
 		courseImages = new ArrayList<String>();	
 	}
 	
 	public Course(int course_id){
 		instructorNames = new ArrayList<String>();
 		instructorImages = new ArrayList<String>();
-		startDates = new ArrayList<String>();
+		//startDates = new ArrayList<String>();
 		courseImages = new ArrayList<String>();
 		this.setCourseId(course_id);
 	}
@@ -56,12 +56,18 @@ public class Course {
 	public void addInstructorImage(String instructorImage) {
 		instructorImages.add(instructorImage);
 	}
-	public String getStartDates() {
+	/*public String getStartDates() {
 		return arraylistToString(startDates);
 	}
 	public void addStartDate(String startDate) {
 		startDates.add(startDate);
-	}
+	}*/
+        public String getStartDates() {
+            return startDate;
+        }
+        public void setStartDate(String startDate) {
+            this.startDate = startDate;
+        }
 	public String getCourseName() {
 		return courseName;
 	}
@@ -158,7 +164,7 @@ public class Course {
 				+"Long_desc: " + longDesc + "\n"
 				+"Course_link: " + url + "\n"
 				+"Video_link: " + videoLink + "\n"
-				+"Start Date: "+ startDates.get(0) + "\n"
+				+"Start Date: "+ startDate + "\n"
 				+"Course Length: "+ courseLength +" days"+ "\n"
 				+"Course Images: "+ courseImages + "\n"
 				+"Category: "+ category + "\n"
