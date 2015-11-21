@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 
-
 public class Course {
 	private String url="";//course url
 	private String courseName="";
-	private ArrayList<String> instructorNames;
-	private ArrayList<String> instructorImages;
-	private String startDate = "";
-	private String instructorName30Cap = "";
+	private String instructorNames;
+	private String instructorImages;
+	private String startDates="2020-12-31";
 	private int courseLength = 0;
 	private String category="";
 	private ArrayList<String> courseImages;
@@ -23,16 +21,10 @@ public class Course {
 	public String site="www.futurelearn.com";
 	
 	public Course(){
-		instructorNames = new ArrayList<String>();
-		instructorImages = new ArrayList<String>();
-		//startDates = new ArrayList<String>();
 		courseImages = new ArrayList<String>();	
 	}
 	
 	public Course(int course_id){
-		instructorNames = new ArrayList<String>();
-		instructorImages = new ArrayList<String>();
-		//startDates = new ArrayList<String>();
 		courseImages = new ArrayList<String>();
 		this.setCourseId(course_id);
 	}
@@ -44,30 +36,23 @@ public class Course {
 		this.url = url;
 	}
 	public String getInstructorNames() {
-		return arraylistToString(instructorNames);
+		return instructorNames;
 	}
 	public void addInstructorName(String instructorName) {
-		instructorNames.add(instructorName);
-		computeInstructorName30Cap();
+		this.instructorNames = instructorName;
 	}
 	public String getInstructorImages() {
-		return arraylistToString(instructorImages);
+		return instructorImages;
 	}
 	public void addInstructorImage(String instructorImage) {
-		instructorImages.add(instructorImage);
+		this.instructorImages = instructorImage;
 	}
-	/*public String getStartDates() {
-		return arraylistToString(startDates);
+	public String getStartDates() {
+		return startDates;
 	}
-	public void addStartDate(String startDate) {
-		startDates.add(startDate);
-	}*/
-        public String getStartDates() {
-            return startDate;
-        }
-        public void setStartDate(String startDate) {
-            this.startDate = startDate;
-        }
+	public void setStartDate(String startDate) {
+		this.startDates = startDate;
+	}
 	public String getCourseName() {
 		return courseName;
 	}
@@ -140,21 +125,6 @@ public class Course {
 	public String getTimeScraped(){
 		return time_scraped;
 	}
-	public void computeInstructorName30Cap(){
-		if(instructorName30Cap.length() < 30){
-			for(String l: instructorNames){
-				for(int i = 0; i < l.length(); i++){
-					if(instructorName30Cap.length() < 30){
-						instructorName30Cap += l.substring(i, i+1);
-					}
-				}
-			}
-		}
-	}
-	public String getInstructorName30Cap(){
-		return instructorName30Cap;
-	}
-	
 	
 	@Override
 	public String toString(){
@@ -164,7 +134,7 @@ public class Course {
 				+"Long_desc: " + longDesc + "\n"
 				+"Course_link: " + url + "\n"
 				+"Video_link: " + videoLink + "\n"
-				+"Start Date: "+ startDate + "\n"
+				+"Start Date: "+ startDates + "\n"
 				+"Course Length: "+ courseLength +" days"+ "\n"
 				+"Course Images: "+ courseImages + "\n"
 				+"Category: "+ category + "\n"
@@ -173,8 +143,7 @@ public class Course {
 				+"Language: " + language + "\n"
 				+"Certificate: " + certificate + "\n"
 				+"University: " + university + "\n"
-				+"Time_scraped: "+  time_scraped +"\n"
-				+"InstructorNames30Cap: "+instructorName30Cap+"\n";
+				+"Time_scraped: "+  time_scraped +"\n";
 	}
 	
 	//convert a list of string to a string 
