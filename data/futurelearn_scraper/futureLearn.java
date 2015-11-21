@@ -100,14 +100,19 @@ public class futureLearn {
                course1.setCourseName(crsName);//save the course name
                
                //shortDesc
-               String shortDesc = doc2.select(".text-typescale").text();
-               //System.out.println(shortDesc + "\n");
+                Elements shortDesc = doc2.select("meta[content]");
+                for(Element sdhold : shortDesc){
+                    if(sdhold.attr("itemprop").equals("description")){
+                        String sdtemp = sdhold.attr("content");
+                        course1.setShortDesc(sdtemp);
+                    }
+                }
                
                //longDesc
                String longdescription = doc2.select("section[class=small").text();
                course1.setLongDescription(longdescription);
                
-               //Univeristy
+               //University
                String university = doc2.select(".run-organisation__logo").attr("alt");
                university = university.replace("logo", "").trim();
                course1.setUniversity(university);
