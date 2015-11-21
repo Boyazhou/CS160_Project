@@ -7,7 +7,8 @@ public class Course {
 	private ArrayList<String> instructorNames;
 	private ArrayList<String> instructorImages;
 	private ArrayList<String> startDates;
-	private ArrayList<String> courseLengths;
+	private String instructorName30Cap = "";
+	private int courseLength = 0;
 	private String category="";
 	private ArrayList<String> courseImages;
 	private String shortDesc="";
@@ -18,13 +19,13 @@ public class Course {
 	private String language="English";
 	private String longDesc= "";
 	private int course_id;
+	private String time_scraped;
 	public String site="www.futurelearn.com";
 	
 	public Course(){
 		instructorNames = new ArrayList<String>();
 		instructorImages = new ArrayList<String>();
 		startDates = new ArrayList<String>();
-		courseLengths = new ArrayList<String>();
 		courseImages = new ArrayList<String>();	
 	}
 	
@@ -32,7 +33,6 @@ public class Course {
 		instructorNames = new ArrayList<String>();
 		instructorImages = new ArrayList<String>();
 		startDates = new ArrayList<String>();
-		courseLengths = new ArrayList<String>();
 		courseImages = new ArrayList<String>();
 		this.setCourseId(course_id);
 	}
@@ -48,6 +48,7 @@ public class Course {
 	}
 	public void addInstructorName(String instructorName) {
 		instructorNames.add(instructorName);
+		computeInstructorName30Cap();
 	}
 	public String getInstructorImages() {
 		return arraylistToString(instructorImages);
@@ -67,11 +68,11 @@ public class Course {
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
 	}
-	public String getCourseLength() {
-		return arraylistToString(courseLengths);
+	public int getCourseLength() {
+		return courseLength;
 	}
 	public void addCourseLength(String courseLength) {
-		courseLengths.add(courseLength);
+		this.courseLength = Integer.parseInt(courseLength)*7;
 	}
 	public String getCategory() {
 		return category;
@@ -127,27 +128,47 @@ public class Course {
     public int getCourseId(){
     	return course_id;
     }
-	
+	public void setTimeScraped(String time_scraped){
+		this.time_scraped = time_scraped;
+	}
+	public String getTimeScraped(){
+		return time_scraped;
+	}
+	public void computeInstructorName30Cap(){
+		if(instructorName30Cap.length() < 30){
+			for(String l: instructorNames){
+				for(int i = 0; i < l.length(); i++){
+					if(instructorName30Cap.length() < 30){
+						instructorName30Cap += l.substring(i, i+1);
+					}
+				}
+			}
+		}
+	}
+	public String getInstructorName30Cap(){
+		return instructorName30Cap;
+	}
 	
 	
 	@Override
 	public String toString(){
 		return  "Course Id: " + course_id + "\n"
 				+"Title: "+ courseName + "\n"
-				+"Short_desc" + shortDesc + "\n"
-				+"Long_desc" + longDesc + "\n"
-				+"Course_link" + url + "\n"
-				+"Video_link" + videoLink + "\n"
+				+"Short_desc: " + shortDesc + "\n"
+				+"Long_desc: " + longDesc + "\n"
+				+"Course_link: " + url + "\n"
+				+"Video_link: " + videoLink + "\n"
 				+"Start Date: "+ startDates.get(0) + "\n"
-				+"Course Length: "+ courseLengths.get(0) +" weeks"+ "\n"
+				+"Course Length: "+ courseLength +" days"+ "\n"
 				+"Course Images: "+ courseImages + "\n"
 				+"Category: "+ category + "\n"
 				+"Site: " +  site + "\n"
 				+"Course fee: " + course_fee + "\n"
 				+"Language: " + language + "\n"
 				+"Certificate: " + certificate + "\n"
-				+"University: " + university + "\n";
-	//			+"Time_scraped: "+ 	
+				+"University: " + university + "\n"
+				+"Time_scraped: "+  time_scraped +"\n"
+				+"InstructorNames30Cap: "+instructorName30Cap+"\n";
 	}
 	
 	//convert a list of string to a string 

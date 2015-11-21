@@ -11,6 +11,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class futureLearn {
 	
@@ -135,8 +138,11 @@ public class futureLearn {
                		int durationNum = Integer.parseInt(durationSplit[0]);//get the first duration in weeks and make it an int
                		duration = Integer.toString(durationNum);//go from in to string
             	}
-               course1.addCourseLength(duration); //save the duration of the course
-               
+               if(duration.length() > 0){
+            	   course1.addCourseLength(duration); //save the duration of the course
+               } else {
+            	   course1.addCourseLength("0");
+               }
                String startDate = doc2.select("time[itemprop=startDate]").text();
                //[number]<space>[month]
                String startDateSplit[] = startDate.split(" "); //split on space
@@ -158,13 +164,17 @@ public class futureLearn {
                		//course category is determined by the current index of the course page
                course1.setCategory(pgcrsNames.get(a));//get the corresponding name for the category
                
+               course1.setTimeScraped( LocalDate.now().toString()+" "+LocalTime.now().toString());
+               
                allCourses.add(course1); //we add the course to the arraylist of all courses
-               System.out.println(course1.toString());
+               
+              System.out.println(course1.toString());
               //store each course to database
               // storeToMySQL(course1);
                i++;//increment course_id
             }
 		}
+        
 	}
 	
 	private static void storeToMySQL(Course crs){
@@ -187,5 +197,4 @@ public class futureLearn {
 		}
 	}
 }
-
 
