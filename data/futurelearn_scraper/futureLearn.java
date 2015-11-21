@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class futureLearn {
+	private static int myId = 1000;
 	
 	/**
 	 * @param args
@@ -82,7 +83,6 @@ public class futureLearn {
                //course URL
                String crsurl = "https://www.futurelearn.com" + l;                
                course1.setUrl(crsurl);
-   
                Document doc2 = Jsoup.connect(crsurl).get();
                Elements ele2 = doc2.select("div[class]");
                
@@ -90,13 +90,24 @@ public class futureLearn {
                for(Element ay: ele2){
                    if(ay.attr("class").equals("educator")){
                        Elements ele3 = ay.select("img");
-                       course1.addInstructorName(ele3.attr("alt"));//save the teacher's name
+                       String proName = ele3.attr("alt");
+                       proName = proName.replaceAll("\\(.+?\\)", "");
+                       proName = proName.replaceAll("\\[.+?\\]", "");
+                       proName = proName.replaceAll("Dr|Professor|Associate", "").trim();
+                       proName = proName.replaceAll("&", ",");
+                       proName = proName.replaceAll(" and ", ",");
+                       proName = proName.replaceAll("\\s+,",",");
+                       proName = proName.replaceAll(",\\s+",",");
+                       proName = proName.replaceAll("\\s+", " ").trim();
+                       //System.out.println(proName);
+                       course1.addInstructorName(proName);//save the teacher's name
                        course1.addInstructorImage(ele3.attr("src"));//save the teacher's picture
+                       break;
                    }
                }
                
                //course name
-               String crsName = doc2.select("h1").text();
+               String crsName = doc2.select("h1").text().trim();
                course1.setCourseName(crsName);//save the course name
                
                //shortDesc
@@ -124,7 +135,7 @@ public class futureLearn {
             	   course1.setVideoLink(videoLink);
                }
                else{
-            	   course1.setVideoLink("emptystring");
+            	   course1.setVideoLink("");
                }
                
                //certificate
@@ -152,13 +163,6 @@ public class futureLearn {
                
                
                //startdate
-               /*String startDate = doc2.select("time[itemprop=startDate]").text();
-               //[number]<space>[month]
-                String startDateSplit[] = startDate.split(" "); //split on space
-                if(startDateSplit.length>2){
-                    startDate = startDateSplit[0]+" "+startDateSplit[1];
-                }
-                course1.addStartDate(startDate);*/
                 Elements startDates = doc2.select("time");
                 for(Element starthold : startDates){
                     if(starthold.attr("itemprop").equals("startDate")){
@@ -185,26 +189,27 @@ public class futureLearn {
                
                
                //duplicatecheck
-               int crschecking = 0;
+               boolean duplicate = false;
                for(Course crscheck: allCourses){
                    //System.out.println(crscheck.getCourseName());
                    if(crscheck.getCourseName().equals(crsName)){
-                       crschecking++;
+                       duplicate = true;
                    }
                }     
-               if(crschecking == 0){
+               if(!duplicate){
+            	   //System.out.println(course1.toString());
                    allCourses.add(course1);
-                   System.out.println(course1.toString());
                    i++;
+                   myId++;
+                   //store each course to database
+                   storeToMySQL(course1);
                }
-               
-               //allCourses.add(course1); //we add the course to the arraylist of all courses
-              //store each course to database
-              // storeToMySQL(course1);
-               //i++;//increment course_id
+               else{
+            	   duplicate = false;
+               }
             }
             }
-        
+        System.out.println("dONE!");
 	}
 	
 	private static void storeToMySQL(Course crs){
@@ -212,19 +217,20 @@ public class futureLearn {
 			//connection to MySQL
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cs160","root","");
 			String query1 = "INSERT INTO coursedetails (id, profname, profimage, course_id)" +
-					" VALUES (\"" + 1 + "\", \"" + crs.getInstructorNames() + "\", \"" + crs.getInstructorImages() + "\", \"" + crs.getCourseId() + "\")";
+					" VALUES (\"" + myId + "\", \"" + crs.getInstructorNames() + "\", \"" + crs.getInstructorImages() + "\", \"" + crs.getCourseId() + "\")";
 			
-			String query2 = "INSERT INTO course_data (id, title,short_desc,long_desc, course_link, video_link, start_date, startDates, courseLengths, course_image, category, courseImages, site, course_fee, language, certificate, university, time_scraped)" +
+			String query2 = "INSERT INTO course_data (id, title,short_desc,long_desc, course_link, video_link, start_date, course_length, course_image, category, site, course_fee, language, certificate, university, time_scraped)" +
 					" VALUES (\"" + crs.getCourseId() + "\", \"" + crs.getCourseName() + "\", \"" + crs.getShortDesc() + "\", \"" + crs.getLongDescription() + "\", \"" 
 					+ crs.getUrl() + "\", \"" + crs.getVideoLink() + "\", \"" + crs.getStartDates() + "\", \"" + crs.getCourseLength() + "\", \"" + crs.getCourseImages() + "\", \""
 					+ crs.getCategory() + "\", \"" + crs.site + "\", \"" + crs.getCourse_fee() + "\", \"" + crs.getLanguage() + "\", \"" + crs.getCertificate() + "\", \"" 
 					+ crs.getUniversity() + "\", \"" + crs.getTimeScraped() + "\")";	
 			Statement stat = conn.createStatement();
+			stat.executeUpdate(query2);
 			stat.executeUpdate(query1);
-			//stat.executeUpdate(query2);
 			
 		} catch(Exception e) {
 			System.out.println(e);
+			System.out.println(crs.getInstructorNames());
 		}
 	}
 }
