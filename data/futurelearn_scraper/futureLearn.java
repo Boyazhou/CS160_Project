@@ -56,7 +56,7 @@ public class futureLearn {
         ArrayList<Course> allCourses = new ArrayList<Course>();
         
         Set<String> courseLinks = new HashSet<String>();
-        
+        int i = 10000; //for course id 
         for(int a=0; a<pgcrs.size();a++)
         {                   
             //String furl = (String) pgcrs.get(a);
@@ -73,11 +73,10 @@ public class futureLearn {
 
             }
         
-            
             for(String l : courseLinks){ //go to each course
-            	Course course1 = new Course();//create the course. we will add it at the end
-            	
-                //course URL
+               Course course1 = new Course(i);//create the course. we will add it at the end
+               
+               //course URL
                String crsurl = "https://www.futurelearn.com" + l;                
                course1.setUrl(crsurl);
    
@@ -97,6 +96,38 @@ public class futureLearn {
                String crsName = doc2.select("h1").text();
                course1.setCourseName(crsName);//save the course name
                
+               //shortDesc
+               String shortDesc = doc2.select(".text-typescale").text();
+               //System.out.println(shortDesc + "\n");
+               
+               //longDesc
+               String longdescription = doc2.select("section[class=small").text();
+               course1.setLongDescription(longdescription);
+               
+               //Univeristy
+               String university = doc2.select(".run-organisation__logo").attr("alt");
+               university = university.replace("logo", "").trim();
+               course1.setUniversity(university);
+               
+               //video link
+               String videoLink = doc2.select("source[src]").attr("src");
+               if(videoLink.startsWith("//")){
+            	   course1.setVideoLink(videoLink);
+               }
+               else{
+            	   course1.setVideoLink("");
+               }
+               
+               //certificate
+               String certificates = doc2.select("p[class=run-data]").text();
+               if(certificates.contains("Certificates")){
+                   course1.setCertificate("Yes");
+               }
+               else{
+                   course1.setCertificate("No");
+               }
+               
+               
                //course length
                String duration = doc2.select("time[itemprop=duration]").text();
                String durationSplit[] = duration.split(" "); //split on space
@@ -114,7 +145,7 @@ public class futureLearn {
                }
                course1.addStartDate(startDate);
                
-               //course image
+              //course image
               Elements ele4 = doc2.select("meta");
               
               for(Element ay: ele4){
@@ -128,9 +159,10 @@ public class futureLearn {
                course1.setCategory(pgcrsNames.get(a));//get the corresponding name for the category
                
                allCourses.add(course1); //we add the course to the arraylist of all courses
-              // System.out.println(course1.toString());
+               System.out.println(course1.toString());
               //store each course to database
-               storeToMySQL(course1);
+              // storeToMySQL(course1);
+               i++;//increment course_id
             }
 		}
 	}
@@ -139,12 +171,16 @@ public class futureLearn {
 		try{
 			//connection to MySQL
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cs160","root","");
-			String query = "INSERT INTO course (courseURL, courseName, instructorNames, instructorImages, startDates, courseLengths, category, courseImages)" +
-					" VALUES (\"" + crs.getUrl() + "\", \"" + crs.getCourseName() + "\", \"" + crs.getInstructorNames() + "\", \""
+			String query1 = "INSERT INTO coursedetails (profname, profimage, course_id)" +
+					" VALUES (\"" + crs.getInstructorNames() + "\", \"" + crs.getInstructorImages() + "\", \"" + crs.getCourseId() + "\")";
+			
+			String query2 = "INSERT INTO course_data (title, courseName, instructorNames, instructorImages, startDates, courseLengths, category, courseImages)" +
+					" VALUES (\"" + crs.getCourseName() + "\", \"" + crs.getInstructorNames() + "\", \""
 							+ crs.getInstructorImages() + "\", \"" + crs.getStartDates() + "\", \"" + crs.getCourseLength() + "\", \""
 							+ crs.getCategory() + "\", \"" + crs.getCourseImages() + "\")";	
 			Statement stat = conn.createStatement();
-			stat.executeUpdate(query);
+			stat.executeUpdate(query1);
+			stat.executeUpdate(query2);
 			
 		} catch(Exception e) {
 			System.out.println(e);
