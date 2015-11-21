@@ -181,16 +181,17 @@ public class futureLearn {
 		try{
 			//connection to MySQL
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cs160","root","");
-			String query1 = "INSERT INTO coursedetails (profname, profimage, course_id)" +
-					" VALUES (\"" + crs.getInstructorNames() + "\", \"" + crs.getInstructorImages() + "\", \"" + crs.getCourseId() + "\")";
+			String query1 = "INSERT INTO coursedetails (id, profname, profimage, course_id)" +
+					" VALUES (\"" + 1 + "\", \"" + crs.getInstructorNames() + "\", \"" + crs.getInstructorImages() + "\", \"" + crs.getCourseId() + "\")";
 			
-			String query2 = "INSERT INTO course_data (title, courseName, instructorNames, instructorImages, startDates, courseLengths, category, courseImages)" +
-					" VALUES (\"" + crs.getCourseName() + "\", \"" + crs.getInstructorNames() + "\", \""
-							+ crs.getInstructorImages() + "\", \"" + crs.getStartDates() + "\", \"" + crs.getCourseLength() + "\", \""
-							+ crs.getCategory() + "\", \"" + crs.getCourseImages() + "\")";	
+			String query2 = "INSERT INTO course_data (id, title,short_desc,long_desc, course_link, video_link, start_date, startDates, courseLengths, course_image, category, courseImages, site, course_fee, language, certificate, university, time_scraped)" +
+					" VALUES (\"" + crs.getCourseId() + "\", \"" + crs.getCourseName() + "\", \"" + crs.getShortDesc() + "\", \"" + crs.getLongDescription() + "\", \"" 
+					+ crs.getUrl() + "\", \"" + crs.getVideoLink() + "\", \"" + crs.getStartDates() + "\", \"" + crs.getCourseLength() + "\", \"" + crs.getCourseImages() + "\", \""
+					+ crs.getCategory() + "\", \"" + crs.site + "\", \"" + crs.getCourse_fee() + "\", \"" + crs.getLanguage() + "\", \"" + crs.getCertificate() + "\", \"" 
+					+ crs.getUniversity() + "\", \"" + crs.getTimeScraped() + "\")";	
 			Statement stat = conn.createStatement();
 			stat.executeUpdate(query1);
-			stat.executeUpdate(query2);
+			//stat.executeUpdate(query2);
 			
 		} catch(Exception e) {
 			System.out.println(e);
