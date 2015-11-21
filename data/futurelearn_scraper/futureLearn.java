@@ -152,13 +152,6 @@ public class futureLearn {
                
                
                //startdate
-               /*String startDate = doc2.select("time[itemprop=startDate]").text();
-               //[number]<space>[month]
-                String startDateSplit[] = startDate.split(" "); //split on space
-                if(startDateSplit.length>2){
-                    startDate = startDateSplit[0]+" "+startDateSplit[1];
-                }
-                course1.addStartDate(startDate);*/
                 Elements startDates = doc2.select("time");
                 for(Element starthold : startDates){
                     if(starthold.attr("itemprop").equals("startDate")){
