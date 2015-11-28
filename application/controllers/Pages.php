@@ -42,4 +42,31 @@ class Pages extends CI_Controller {
             $this->load->view("login");
             $this->load->view("templates/footer");
         }
+        
+        public function login_validation(){
+            $this->load->library('form_validation');
+        
+            $this->form_validation->set_rules('form-username', 'Username', 'required|trim|callback_validate_credentials');
+            $this->form_validation->set_rules('form-password', 'Password', 'required|md5|trim');
+            /*echo("<script>console.log('PHP: ".$this->input->post('form-password').";</script>");*/
+          
+          //  echo("Username: " + $this->input->post('username'));
+            if($this->form_validation->run()){
+                $this->home();
+            }else{
+                $this->login();
+            }
+           
+        }
+        
+        public function validate_credentials(){
+            $this->load->model('model_users');
+            
+            if($this->model_users->can_log_in()) {
+                return true;
+            } else {
+                $this->form_validation->set_message('validate_credentials', 'Incorrect username/password');
+                return false;
+            }
+        }
 }
