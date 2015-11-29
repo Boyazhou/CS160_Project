@@ -58,13 +58,18 @@
                         <a class="page-scroll" href="<?php echo base_url();?>Pages/course">Course</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="<?php echo base_url();?>Pages/job">Jobs</a>
+                        <a class="page-scroll" href="<?php echo base_url();?>Pages/coursetrack">Course Track</a>
                     </li>
-                    <li>
+                 
+                    <li  <?php if($this->session->userdata('is_loggin_in'))  echo "style='display:none;'";?> >
                         <a class="page-scroll" href="<?php echo base_url();?>Pages/login">Log in</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="<?php echo base_url();?>Pages/login">Sign up</a>
+                    <li <?php if($this->session->userdata('is_loggin_in'))  echo "style='display:none;'";?>>
+                        <a class="page-scroll" href="<?php echo base_url();?>Pages/signup">Sign up</a>
+                    </li>
+                    
+                    <li <?php if($this->session->userdata('is_loggin_in') == 0)  echo "style='display:none;'";?>>
+                        <a class="page-scroll" href="<?php echo base_url();?>Pages/logout">Log out</a>
                     </li>
                 </ul>
             </div>

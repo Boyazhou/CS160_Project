@@ -31,9 +31,9 @@ class Pages extends CI_Controller {
             $this->load->view("templates/footer");
         }
 
-        public function job(){
+        public function coursetrack(){
             $this->load->view("templates/header");
-            $this->load->view("job");
+            $this->load->view("coursetrack");
             $this->load->view("templates/footer");
         }
 
@@ -42,21 +42,57 @@ class Pages extends CI_Controller {
             $this->load->view("login");
             $this->load->view("templates/footer");
         }
+    
+        public function signup(){
+            $this->load->view("templates/header");
+            $this->load->view("signup");
+            $this->load->view("templates/footer");
+        }
         
         public function login_validation(){
             $this->load->library('form_validation');
         
-            $this->form_validation->set_rules('form-username', 'Username', 'required|trim|callback_validate_credentials');
+            $this->form_validation->set_rules('form-email', 'Email', 'required|trim|valid_email|callback_validate_credentials');
             $this->form_validation->set_rules('form-password', 'Password', 'required|md5|trim');
-            /*echo("<script>console.log('PHP: ".$this->input->post('form-password').";</script>");*/
-          
-          //  echo("Username: " + $this->input->post('username'));
             if($this->form_validation->run()){
-                $this->home();
+                $data = array(
+                    'email' => $this->input->post('form-email'),
+                    'is_loggin_in' => 1
+                );
+                $this->session->set_userdata($data);
+                redirect('/Pages/home/', 'refresh');
             }else{
                 $this->login();
             }
            
+        }
+    
+        public function signup_validation(){
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('form-name', 'Name', 'required|trim');
+            $this->form_validation->set_rules('form-email', 'Email', 'required|trim|valid_email|is_unique[users.email]');
+            $this->form_validation->set_rules('form-password', 'Password', 'required|trim');
+            $this->form_validation->set_rules('form-cpassword', 'Confirm Password', 'required|trim|matches[form-password]');
+            
+            $this->form_validation->set_message('is_unique', "That email address already exists.");
+            if($this->form_validation->run()){
+                /*$data = array(
+                    'email' => $this->input->post('form-email'),
+                    'is_loggin_in' => 1
+                );
+                $this->session->set_userdata($data);
+                redirect('/Pages/home/', 'refresh');*/
+                echo "Pass";
+            }else{
+                $this->signup();
+            }
+            
+        }
+    
+    
+        public function logout() {
+            $this->session->sess_destroy();
+            redirect('/Pages/login/', 'refresh');
         }
         
         public function validate_credentials(){
