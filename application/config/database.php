@@ -74,11 +74,20 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn'	=> '',  
+    
+    //for local database
+/*	'hostname' => 'localhost',
+	'username' => 'root', 
+ 	'password' => '',
+    'database' => 'cs160',*/
+    
+    //for remote database
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'cs160',
+    'username' => 'youthcyb_160s2g2', 
+ 	'password' => 'safety1st',
+	'database' => 'youthcyb_160s2g2',
+    
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
