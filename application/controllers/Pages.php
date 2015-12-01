@@ -72,23 +72,32 @@ class Pages extends CI_Controller {
             $this->form_validation->set_rules('form-name', 'Name', 'required|trim');
             $this->form_validation->set_rules('form-email', 'Email', 'required|trim|valid_email|is_unique[users.email]');
             $this->form_validation->set_rules('form-password', 'Password', 'required|trim');
-            $this->form_validation->set_rules('form-cpassword', 'Confirm Password', 'required|trim|matches[form-password]');
+            $this->form_validation->set_rules('form-cpassword', 'Confirm Password', 'required|trim|matches[form-password]|callback_valid_signup');
             
             $this->form_validation->set_message('is_unique', "That email address already exists.");
             if($this->form_validation->run()){
-                /*$data = array(
+                $data = array(
                     'email' => $this->input->post('form-email'),
                     'is_loggin_in' => 1
                 );
                 $this->session->set_userdata($data);
-                redirect('/Pages/home/', 'refresh');*/
-                echo "Pass";
+                redirect('/Pages/home/', 'refresh');
             }else{
                 $this->signup();
             }
             
         }
-    
+        
+        public function valid_signup(){
+            $this->load->model('model_users');
+            
+            if($this->model_users->add_user()) {
+                return true;
+            } else {
+                $this->form_validation->set_message('valid_signup', 'Sign up failed');
+                return false;
+            }
+        }
     
         public function logout() {
             $this->session->sess_destroy();
