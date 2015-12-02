@@ -25,6 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost';
 
+//for remote database
+//$config['base_url'] = 'http://www.sjsu-cs.org/cs160/sec2group2/course_engine';
+
 /*
 |--------------------------------------------------------------------------
 | Index File

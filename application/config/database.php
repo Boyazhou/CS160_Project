@@ -77,18 +77,19 @@ $db['default'] = array(
 	'dsn'	=> '',  
     
     //for local database
-/*	'hostname' => 'localhost',
+	'hostname' => 'localhost',
 	'username' => 'root', 
  	'password' => '',
-    'database' => 'cs160',*/
+    'database' => 'cs160',
+    'dbdriver' => 'mysqli',
     
     //for remote database
-	'hostname' => 'localhost',
+/*	'hostname' => 'localhost',
     'username' => 'youthcyb_160s2g2', 
  	'password' => 'safety1st',
-	'database' => 'youthcyb_160s2g2',
+	'database' => 'youthcyb_cs160s2g2',
+    'dbdriver' => 'mysql',*/
     
-	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

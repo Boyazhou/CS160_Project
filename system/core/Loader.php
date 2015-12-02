@@ -290,7 +290,7 @@ class CI_Loader {
 			load_class('Model', 'core');
 		}
 
-		$model = ucfirst($model);
+		//$model = ucfirst($model);
 		if ( ! class_exists($model))
 		{
 			foreach ($this->_ci_model_paths as $mod_path)
@@ -1178,9 +1178,9 @@ class CI_Loader {
 						include($path.'config/'.strtolower($class).'.php');
 						$found = TRUE;
 					}
-					elseif (file_exists($path.'config/'.ucfirst(strtolower($class)).'.php'))
+					elseif (file_exists($path.'config/'.strtolower($class).'.php'))
 					{
-						include($path.'config/'.ucfirst(strtolower($class)).'.php');
+						include($path.'config/'.strtolower($class).'.php');
 						$found = TRUE;
 					}
 
@@ -1189,9 +1189,9 @@ class CI_Loader {
 						include($path.'config/'.ENVIRONMENT.'/'.strtolower($class).'.php');
 						$found = TRUE;
 					}
-					elseif (file_exists($path.'config/'.ENVIRONMENT.'/'.ucfirst(strtolower($class)).'.php'))
+					elseif (file_exists($path.'config/'.ENVIRONMENT.'/'.strtolower($class).'.php'))
 					{
-						include($path.'config/'.ENVIRONMENT.'/'.ucfirst(strtolower($class)).'.php');
+						include($path.'config/'.ENVIRONMENT.'/'.strtolower($class).'.php');
 						$found = TRUE;
 					}
 
