@@ -6,7 +6,7 @@
       <section class="col-xs-12 col-sm-6 col-md-12">
 		<article class="search-result row">
 			<div class="col-xs-12 col-sm-12 col-md-3">
-				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="<?php echo $row->course_image?>" alt="Image unavailable" /></a>
+				<a href="<?php echo $row->video_link?>" title="Lorem ipsum" class="thumbnail"><img src="<?php echo $row->course_image?>" alt="Image unavailable" /></a>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-2">
 				<ul class="meta-search">
