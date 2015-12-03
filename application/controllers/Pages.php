@@ -44,6 +44,11 @@ class Pages extends CI_Controller {
             $this->load->view("templates/footer");
         }
 
+		public function coursetrackresult(){
+            $this->load->view("templates/header");
+            $this->load->view("coursetrackresult");
+            $this->load->view("templates/footer");		
+		}
         public function login(){
             $this->load->view("templates/header");
             $this->load->view("login");
@@ -182,3 +187,4 @@ class Pages extends CI_Controller {
 
 
 }
+
