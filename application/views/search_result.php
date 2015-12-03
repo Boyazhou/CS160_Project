@@ -1,7 +1,7 @@
 <div class="container">
 
 	<link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> <!--Added by alex 3Dec2015-->
+<!--<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> <!--Added by alex 3Dec2015-->
 
 	<link href="<?php echo base_url();?>resource/css/star-rating.css" media="all" rel="stylesheet" type="text/css" /><!--Added by alex 3Dec2015-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><!--Added by alex 3Dec2015-->
