@@ -82,7 +82,6 @@
     <section>
     	<h1 style="color: black; font-weight:bold;" >AVAILABLE COURSE TRACKS</h1>
   		<div class="row">
-<p>Alex is just testing code here... don't worry about it...</p><!--Added by alex 3Dec2015-->
 
 	 		<div class="track">
      			<h2>CISCO</h2>
