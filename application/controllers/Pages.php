@@ -114,4 +114,13 @@ class Pages extends CI_Controller {
                 return false;
             }
         }
+    //search
+        function search() {
+            $this->load->model('model_course');
+            $data['query'] = $this->model_course->searchCourse($this->input->post('search'));
+            $this->load->view("templates/header");
+            $this->load->view("course");
+            $this->load->view("search_result", $data);
+            $this->load->view("templates/footer");
+        }
 }

@@ -55,7 +55,7 @@
                         <a class="page-scroll" href="<?php echo base_url();?>">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="<?php echo base_url();?>Pages/course">Course</a>
+                        <a class="page-scroll" href="<?php echo base_url();?>Pages/course">Browse Course</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="<?php echo base_url();?>Pages/coursetrack">Course Track</a>
