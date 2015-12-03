@@ -1,5 +1,10 @@
-<div class="container">
-    <?php
+ <section id="services">
+        <div class="container">
+            <div class="col-lg-12 text-center">
+            <h2 class="section-heading"><u>Popular Courses</u></h2>
+             <p>Hope You Like it</p>
+             
+             <?php
     if($query != null){
     foreach ($query as $row) {
     ?>
@@ -30,4 +35,8 @@
     <?php   
     }}
     ?>	
-</div>
+
+             
+             </div>
+     </div>
+    </section>
