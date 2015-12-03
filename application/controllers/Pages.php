@@ -20,8 +20,15 @@ class Pages extends CI_Controller {
         }
 
         public function home(){
+
         	$this->load->view("templates/header");
             $this->load->view("home");
+            $this->load->view("categories");
+            $this->load->model('model_course');
+            $data['query'] = $this->model_course->searchCourse("Java");
+            $this->load->view("popularCourses", $data);
+            $data['query'] = $this->model_course->searchCourse("sport");
+            $this->load->view("sportCourses", $data);
         	$this->load->view("templates/footer");
         }
 
@@ -128,4 +135,56 @@ class Pages extends CI_Controller {
             $this->load->view("search_result", $data);
             $this->load->view("templates/footer");
         }
+
+        function searchCategories($input) {
+            $this->load->model('model_course');
+            $data['query'] = $this->model_course->searchCourse($input);
+            $this->load->view("templates/header");
+            $this->load->view("home");
+            $this->load->view("categories");
+            $this->load->view("search_result", $data);
+            $this->load->view("templates/footer");
+        }
+
+        function searchCategoriesBussness() {
+            $this->searchCategories("business");
+        }
+        function searchCategoriesArts() {
+            $this->searchCategories("art");
+        }
+        function searchCategoriesHealth() {
+            $this->searchCategories("health");
+        }
+        function searchCategoriesHistory() {
+            $this->searchCategories("History");
+        }
+        function searchCategoriesLanguages() {
+            $this->searchCategories("Languages");
+        }
+        function searchCategoriesLaw() {
+            $this->searchCategories("Law");
+        }
+        function searchCategoriesLiterature() {
+            $this->searchCategories("Literature");
+        }
+        function searchCategoriesDigital() {
+            $this->searchCategories("Digital");
+        }
+        function searchCategoriesPolitics() {
+            $this->searchCategories("Politics");
+        }
+        function searchCategoriesScience() {
+            $this->searchCategories("Science");
+        }
+        function searchCategoriesSport() {
+            $this->searchCategories("Sport");
+        }
+        function searchCategoriesTeaching() {
+            $this->searchCategories("Teaching");
+        }
+
+   
+
+
 }
+
