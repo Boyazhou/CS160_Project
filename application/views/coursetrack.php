@@ -1,6 +1,9 @@
    <link rel="stylesheet" href="<?php echo base_url();?>resource/css/form-elements.css">
    <link rel="stylesheet" href="<?php echo base_url();?>resource/css/style.css">
-   
+	
+
+
+
 <html>
 	<style type="text/css">
 		h1 {
@@ -20,6 +23,7 @@
 	</style>
 	
 	<header>
+		
         <div class="header-content">
             <div class="header-content-inner">
                 <h1>Course Tracks</h1>
@@ -78,10 +82,16 @@
     <section>
     	<h1 style="color: black; font-weight:bold;" >AVAILABLE COURSE TRACKS</h1>
   		<div class="row">
+<p>Alex is just testing code here... don't worry about it...</p><!--Added by alex 3Dec2015-->
+
 	 		<div class="track">
      			<h2>CISCO</h2>
      			<h5>Description: Cisco is looking for people with some front end experience.</h5>
      			<p><a href="https://www.udacity.com/course/intro-to-html-and-css--ud304">Intro to HTML and CSS</a></p>
+
+
+
+
      			<p><a href="https://www.coursera.org/learn/html-css-javascript">HTML, CSS and JavaScript</a></p>
      			<p><a href="https://www.udacity.com/course/senior-web-developer--nd802">Advanced Level HTML and CSS</a></p>
   			</div>
