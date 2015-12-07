@@ -42,6 +42,30 @@
 <div class="4star">
 <input id="rating-system" type="number" class="rating" data-min="1" data-max="4" step="1"><!--Added by alex 3Dec2015-->
 
+	<div class="container"> <!--Written by Steven, put here by alex 6Dec2015-->
+		<?php
+		if($query != null){
+		foreach ($query as $row) {
+		?>
+		  <section class="col-xs-12 col-sm-6 col-md-12">
+			<article class="search-result row">
+				<dir>
+					<!--this will have number rating-->
+					<?php echo $row->num_R?>
+					$row->num_R
+					<!--this will have display rating-->
+					<?php echo $row->Display_R?>
+					$row->Display_R
+				</dir>
+			</article>	
+		    </section>
+		<?php   
+		}}else{
+
+		}
+		?>	
+	</div>
+
 <script type="text/javascrypt">
 	  var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);

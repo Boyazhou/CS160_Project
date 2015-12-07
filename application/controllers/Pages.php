@@ -182,7 +182,17 @@ class Pages extends CI_Controller {
         function searchCategoriesTeaching() {
             $this->searchCategories("Teaching");
         }
-
+		//rating function 
+		//written by steven, put here by alex 6Dec2015
+		function rating(){
+            $this->load->model('model_rating');
+            $data['query'] = $this->model_course->searchRating($this->input->post('ID'));
+            if($query == null){
+            addRating(ID);
+            $data['query'] = $this->model_course->searchRating($this->input->post('ID'));
+        }
+            $this->load->view("your display rating view", $data);
+        }
    
 
 
